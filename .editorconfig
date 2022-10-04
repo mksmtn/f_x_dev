@@ -1,0 +1,10 @@
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+trim_trailing_whitespace = tru
+insert_final_newline = true
+end_of_line = lf
+
+[*.bazel]
+indent_size = 4
