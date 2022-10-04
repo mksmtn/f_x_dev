@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "bazelbuild.vscode-bazel",
+    "esbenp.prettier-vscode",
+    "haskell.haskell"
+  ]
+}
