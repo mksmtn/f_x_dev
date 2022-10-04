@@ -1,0 +1,6 @@
+{
+  "bazel.pathsToIgnore": [
+    "./tools/buildtools"
+  ],
+  "editor.formatOnSave": true
+}
