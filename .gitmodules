@@ -1,0 +1,3 @@
+[submodule "tools/buildtools"]
+	path = tools/buildtools
+	url = https://github.com/bazelbuild/buildtools
