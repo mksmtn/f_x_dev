@@ -7,6 +7,7 @@ haskell_binary(
     name = "server",
     srcs = ["src/Main.hs"],
     data = [
+        "articles/all-strings-typescript-types-mapping.md",
         "articles/pattern-matching-in-python-01.md",
     ],
     deps = [
