@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Web.Scotty
 import CMark
-import Control.Monad (liftM)
 import Control.Monad.IO.Class (liftIO)
 import Data.Monoid (mconcat)
 import Data.Text.Lazy as LText
