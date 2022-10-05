@@ -6,8 +6,13 @@ load(
 haskell_binary(
     name = "server",
     srcs = ["src/Main.hs"],
+    data = [
+        "articles/pattern-matching-in-python-01.md",
+    ],
     deps = [
         "@stackage//:base",
+        "@stackage//:cmark",
         "@stackage//:scotty",
+        "@stackage//:text",
     ],
 )

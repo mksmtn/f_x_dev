@@ -30,7 +30,9 @@ stack_snapshot(
     name = "stackage",
     packages = [
         "base",
+        "cmark",
         "scotty",
+        "text",
     ],
     snapshot = "lts-18.27",
     stack_snapshot_json = "//:stackage_snapshot.json",
