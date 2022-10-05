@@ -63,7 +63,7 @@ function parseBadJSON(badJSON: AllStrings<Profile>): Profile {
 
 Тип `AllStrings` работает следующим образом. Для переданного типа `T` он заменяет тип каждого его поля в зависимости от условий. Если это поле имеет числовой тип `T[Key] extends number`, то оно заменяется на `string`, если поле имееет логический тип `T[Key] extends boolean`, то тоже заменяет на строковый. В противном случае рекурсивно применяется `AllStrings<T[Key]>`. Что интересно, здесь нет необходимости прописывать кейс `T[Key] extends string ? string : AllStrings<T[Key]>`. Когда TS встречает примитивный тип внутри маппинга типов, как в случае `AllStrings<string>`, он возвращает сам примитивный тип, т.е. в данном случае `string`. Это поведение описано в [TypeScript-FAQ](https://github.com/microsoft/TypeScript/wiki/FAQ#common-bugs-that-arent-bugs)
 
-### References
+## References
 
 [1] TypeScript Handbook: [Mapped types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)
 
