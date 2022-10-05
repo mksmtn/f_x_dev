@@ -23,3 +23,15 @@ load(
 rules_haskell_toolchains(
     version = "8.10.7",
 )
+
+load("@rules_haskell//haskell:cabal.bzl", "stack_snapshot")
+
+stack_snapshot(
+    name = "stackage",
+    packages = [
+        "base",
+        "scotty",
+    ],
+    snapshot = "lts-18.27",
+    stack_snapshot_json = "//:stackage_snapshot.json",
+)

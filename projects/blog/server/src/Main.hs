@@ -1,6 +1,9 @@
-module Main
-  where
+{-# LANGUAGE OverloadedStrings #-}
+import Web.Scotty
 
-main :: IO ()
-main =
-  putStrLn "Hello world"
+import Data.Monoid (mconcat)
+
+main = scotty 3000 $
+    get "/:word" $ do
+        beam <- param "word"
+        html $ mconcat ["<h1>Scotty, ", beam, " me up!</h1>"]

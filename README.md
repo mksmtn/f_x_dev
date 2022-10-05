@@ -24,4 +24,20 @@ bazelisk build //buildifier
 apt-get install build-essential libffi-dev libgmp-dev libtinfo5 libtinfo-dev python python3 openjdk-11-jdk
 ```
 
-6. Install git hooks
+6. [Install GHC 8.10.7](https://www.haskell.org/ghcup/#)
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+```
+
+7. [Install Stack](https://docs.haskellstack.org/en/stable/)
+
+```bash
+curl -sSL https://get.haskellstack.org/ | sh
+```
+
+8. Install git hooks
+
+### Developing in Haskell
+
+**Updating dependencies**: add a dependency to `stack_snapshot` WORKSPACE rule, and then do `bazelisk run @stackage-unpinned//:pin`.
