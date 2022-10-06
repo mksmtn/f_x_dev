@@ -9,6 +9,8 @@ haskell_binary(
     data = [
         "articles/all-strings-typescript-types-mapping.md",
         "articles/pattern-matching-in-python-01.md",
+        "assets/prism.css",
+        "assets/prism.js",
     ],
     deps = [
         "@stackage//:base",

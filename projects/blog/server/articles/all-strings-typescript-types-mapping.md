@@ -24,7 +24,7 @@
 
 Очевидно, что с таким объектом работать неудобно. `age` и `salary` должны быть числами, а `married` и `onVacation` — булиевыми значениями. Поэтому нужно смаппить ответ от сервиса так, чтобы значения полей обрели логический и числовой тип там, где эти типы подразумевались.
 
-```tsx
+```ts
 interface Person {
   name: string;
   age: number;
@@ -47,7 +47,7 @@ function parseBadJSON(badJSON: any): Profile {
 
 Но как корректно описать тип параметра `badJSON`, чтобы TS не позволил нам ошибиться в маппинге? Сейчас ничего не мешает внутри функции сделать опечатку вроде `married: badJSON.maried` (должно быть две `r`) или другую ошибку. Конечно, можно скопировать тип `Profile` и написать рядом ещё один `ProfileInput`, в котором вручную заменить все `number` и `boolean` на `string`, но по понятным причинам это решение далеко от идеального, особенно если тип `Profile` в реальной жизни будет более сложным. К счастью, в TS есть несколько фич, позволяющих рекурсивно заменить все `number` и `boolean` на `string` на любом уровне вложенности: маппинг типов ([mapped types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)) и условные типы ([conditional types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)). Вот как может выглядеть реализация:
 
-```tsx
+```ts
 type AllStrings<T> = {
   [Key in keyof T]: T[Key] extends number
     ? string
