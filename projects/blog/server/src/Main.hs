@@ -9,7 +9,7 @@ import qualified Data.Text as Text
 import System.IO
 
 main = scotty 3000 $ do
-    middleware $ staticPolicy (noDots >-> addBase "assets")
+    middleware $ staticPolicy (noDots >-> addBase "projects/blog/server/assets")
     get "/:file-name" $ do
         fileName <- param "file-name"
         let filePath = "projects/blog/server/articles/" ++ fileName ++ ".md"

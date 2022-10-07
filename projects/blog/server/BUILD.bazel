@@ -9,6 +9,7 @@ haskell_binary(
     data = [
         "articles/all-strings-typescript-types-mapping.md",
         "articles/pattern-matching-in-python-01.md",
+        "assets/pattern-matching-wide.jpg",
         "assets/prism.css",
         "assets/prism.js",
     ],
