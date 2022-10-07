@@ -33,6 +33,7 @@ stack_snapshot(
         "cmark",
         "scotty",
         "text",
+        "wai-middleware-static",
     ],
     snapshot = "lts-18.27",
     stack_snapshot_json = "//:stackage_snapshot.json",

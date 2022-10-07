@@ -1,22 +1,35 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Web.Scotty
+import Network.Wai.Middleware.Static
 import CMark
 import Control.Monad.IO.Class (liftIO)
 import Data.Monoid (mconcat)
-import Data.Text.Lazy as LText
-import Data.Text as Text
+import qualified Data.Text.Lazy as LText
+import qualified Data.Text as Text
 import System.IO
 
-main = scotty 3000 $
+main = scotty 3000 $ do
+    middleware $ staticPolicy (noDots >-> addBase "assets")
     get "/:file-name" $ do
         fileName <- param "file-name"
         let filePath = "projects/blog/server/articles/" ++ fileName ++ ".md"
-        content <- liftIO $ readFile $ filePath
+        content <- liftIO $ readFile filePath
         let textContent = Text.pack content
         let htmlText = commonmarkToHtml [] textContent
-        fullHtml <- liftIO $ wrapHtml $ htmlText
+        fullHtml <- liftIO $ wrapHtml htmlText
         let lazyHtmlText = LText.fromStrict fullHtml
         html lazyHtmlText
+    get "/" $ do
+        let content = Text.pack homePage
+        htmlText <- liftIO $ wrapHtml content
+        html . LText.fromStrict $ htmlText 
+
+
+homePage :: String
+homePage =
+    let link = (\(name, link) -> "<li><a href=" ++ link ++ ">" ++ name ++ "</a></li>")
+        links = concatMap link [("Маппинг типов в Typescript на примере", "/all-strings-typescript-types-mapping"), ("Паттерн матчинг в Python", "/pattern-matching-in-python-01")]
+    in  "<h1>f(x)</h1><nav><ol>" ++ links ++ "</ol></nav>"
 
 
 wrapHtml :: Text.Text -> IO Text.Text

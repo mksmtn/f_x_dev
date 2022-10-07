@@ -17,5 +17,6 @@ haskell_binary(
         "@stackage//:cmark",
         "@stackage//:scotty",
         "@stackage//:text",
+        "@stackage//:wai-middleware-static"
     ],
 )
