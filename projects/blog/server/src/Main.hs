@@ -40,6 +40,7 @@ wrapHtml article =
         let list = [ Text.pack "<!DOCTYPE html><html><head><style>"
                    , Text.pack prismCss
                    , Text.pack "</style></head><body>"
+                   , Text.pack "<nav><ul><li><a href=\"/\">Домой</a></li></ul></nav>"
                    , article
                    , Text.pack "<script>"
                    , Text.pack prismJs
