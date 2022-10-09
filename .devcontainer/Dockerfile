@@ -19,10 +19,11 @@ RUN apt update && apt-get install --assume-yes build-essential libffi-dev libgmp
 ENV DOCKER_CONFIG /etc/docker
 
 # Install kubectl
-RUN curl -L https://dl.k8s.io/release/v1.23.12/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+RUN curl -L https://dl.k8s.io/release/v1.24.6/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
 RUN chmod +x /usr/local/bin/kubectl
 
 # Set up authentication for k8s cluster in the cloud
-ENV KUBECONFIG secrets/config.yaml
+ENV KUBECONFIG /workspaces/f_x_dev/secrets/config.yaml
+RUN curl -sSL https://hub.mcs.mail.ru/repository/client-keystone-auth/latest/linux/client-install.sh | bash
 
 ENTRYPOINT ["/bin/bash"]
