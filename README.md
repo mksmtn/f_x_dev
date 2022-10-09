@@ -44,7 +44,15 @@ curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 curl -sSL https://get.haskellstack.org/ | sh
 ```
 
-8. Install git hooks
+8. Download `kubectl` version 1.23.
+
+```bash
+curl -L https://dl.k8s.io/release/v1.23.12/bin/linux/amd64/kubectl -o bin/kubectl
+```
+
+9. Place `config.yaml` with authentication settings into `secrets/`
+
+10. Install git hooks
 
 ### Developing in Haskell
 
