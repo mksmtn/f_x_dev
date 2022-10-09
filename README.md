@@ -1,3 +1,11 @@
+## Prerequisites
+
+1. You should be logged into Docker Container Registry, i.e. you should have a `~/.docker/config.json` with your credentials.
+
+```bash
+docker login
+```
+
 ## Developer onboarding
 
 1. Install `bazelisk`.
