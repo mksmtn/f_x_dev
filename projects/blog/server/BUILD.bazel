@@ -2,22 +2,83 @@ load(
     "@rules_haskell//haskell:defs.bzl",
     "haskell_binary",
 )
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_layer")
+load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
+
+article_files = [
+    "articles/all-strings-typescript-types-mapping.md",
+    "articles/pattern-matching-in-python-01.md",
+]
+
+asset_files = [
+    "assets/pattern-matching-wide.jpg",
+    "assets/prism.css",
+    "assets/prism.js",
+]
+
+static_files = article_files + asset_files
 
 haskell_binary(
     name = "server",
     srcs = ["src/Main.hs"],
-    data = [
-        "articles/all-strings-typescript-types-mapping.md",
-        "articles/pattern-matching-in-python-01.md",
-        "assets/pattern-matching-wide.jpg",
-        "assets/prism.css",
-        "assets/prism.js",
-    ],
+    data = static_files,
     deps = [
         "@stackage//:base",
         "@stackage//:cmark",
+        "@stackage//:http-types",
         "@stackage//:scotty",
+        "@stackage//:streaming-commons",
         "@stackage//:text",
-        "@stackage//:wai-middleware-static"
+        "@stackage//:wai-middleware-static",
+        "@stackage//:warp",
     ],
+)
+
+container_layer(
+    name = "articles_layer",
+    directory = "/app/projects/blog/server/articles",
+    files = article_files,
+    mode = "0o777",
+)
+
+container_layer(
+    name = "assets_layer",
+    directory = "/app/projects/blog/server/assets",
+    files = asset_files,
+    mode = "0o777",
+)
+
+container_layer(
+    name = "binary_layer",
+    directory = "app",
+    files = [":server"],
+    mode = "0o777",
+)
+
+container_image(
+    name = "server_image",
+    base = "@haskell_base//image",
+    entrypoint = ["./server"],
+    env = {
+        "PORT": "3000",
+        "HOST": "*",
+    },
+    layers = [
+        ":binary_layer",
+        ":articles_layer",
+        ":assets_layer",
+    ],
+    ports = ["3000"],
+    workdir = "/app",
+)
+
+k8s_object(
+    name = "server_deployment",
+    cluster = "1",
+    images = {
+        "docker.io/mksmtn/f_x_server:latest": ":server_image",
+    },
+    kind = "deployment",
+    kubeconfig = "//secrets:config.yaml",
+    template = "deployment.yaml",
 )
