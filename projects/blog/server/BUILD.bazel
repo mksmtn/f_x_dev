@@ -74,7 +74,7 @@ container_image(
 
 k8s_object(
     name = "server_deployment",
-    cluster = "f-x-dev",
+    cluster = "promoted-maggot-959e4d",
     images = {
         "docker.io/mksmtn/f_x_server:latest": ":server_image",
     },
