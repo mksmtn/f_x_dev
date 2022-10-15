@@ -1,3 +1,6 @@
 [submodule "tools/buildtools"]
 	path = tools/buildtools
 	url = https://github.com/bazelbuild/buildtools
+[submodule "tools/rules_elm"]
+	path = tools/rules_elm
+	url = https://github.com/mksmtn/rules_elm.git
