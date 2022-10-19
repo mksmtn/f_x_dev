@@ -28,7 +28,9 @@ toString route =
 parser : Parser (Route -> a) a
 parser =
   oneOf
-    [ Parser.map Article (s "articles" </> string)
+    [ Parser.map About (s "about")
+    , Parser.map Article (s "articles" </> string)
+    , Parser.map Contacts (s "contacts")
     , Parser.map Home top
     ]
 
