@@ -24,6 +24,16 @@ RUN chmod +x /usr/local/bin/kubectl
 
 # Set up authentication for k8s cluster in the cloud
 ENV KUBECONFIG /workspaces/f_x_dev/secrets/config.yaml
-RUN curl -sSL https://hub.mcs.mail.ru/repository/client-keystone-auth/latest/linux/client-install.sh | bash
+
+# Install Helm
+RUN curl -L https://get.helm.sh/helm-v3.10.1-linux-amd64.tar.gz -o /tmp/helm.tar.gz
+RUN tar -xzf /tmp/helm.tar.gz -C /tmp
+RUN mv /tmp/linux-amd64/helm /usr/local/bin/helm
+
+# Install Elm
+RUN curl -L https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz -o /tmp/elm.gz
+RUN gunzip /tmp/elm.gz
+RUN mv /tmp/elm /usr/local/bin/elm
+RUN chmod +x /usr/local/bin/elm
 
 ENTRYPOINT ["/bin/bash"]

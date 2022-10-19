@@ -4,6 +4,7 @@ load(
 )
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_layer")
 load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
+load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
 
 article_files = [
     "articles/all-strings-typescript-types-mapping.md",
@@ -42,13 +43,6 @@ container_layer(
 )
 
 container_layer(
-    name = "assets_layer",
-    directory = "/app/projects/blog/server/assets",
-    files = asset_files,
-    mode = "0o777",
-)
-
-container_layer(
     name = "binary_layer",
     directory = "app",
     files = [":server"],
@@ -66,19 +60,35 @@ container_image(
     layers = [
         ":binary_layer",
         ":articles_layer",
-        ":assets_layer",
     ],
     ports = ["3000"],
     workdir = "/app",
 )
 
 k8s_object(
-    name = "server_deployment",
+    name = "deployment",
     cluster = "promoted-maggot-959e4d",
     images = {
-        "docker.io/mksmtn/f_x_server:latest": ":server_image",
+        "docker.io/mksmtn/f_x_blog_server:latest": ":server_image",
     },
     kind = "deployment",
     kubeconfig = "//secrets:config.yaml",
-    template = "deployment.yaml",
+    template = "k8s/deployment.yaml",
+)
+
+k8s_object(
+    name = "service",
+    cluster = "promoted-maggot-959e4d",
+    kind = "service",
+    kubeconfig = "//secrets:config.yaml",
+    template = "k8s/service.yaml",
+)
+
+k8s_objects(
+    name = "k8s",
+    objects = [
+        ":deployment",
+        ":service",
+    ],
+    visibility = ["//projects/blog:__pkg__"]
 )

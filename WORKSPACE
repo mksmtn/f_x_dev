@@ -111,3 +111,131 @@ k8s_repositories()
 load("@io_bazel_rules_k8s//k8s:k8s_go_deps.bzl", k8s_go_deps = "deps")
 
 k8s_go_deps()
+
+# Node.js (for Elm)
+
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "c29944ba9b0b430aadcaf3bf2570fece6fc5ebfb76df145c6cdad40d65c20811",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.7.0/rules_nodejs-5.7.0.tar.gz"],
+)
+
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
+
+node_repositories(
+    node_version = "16.18",
+    yarn_version = "3.2.4",
+)
+
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+)
+
+# Elm
+
+local_repository(
+    name = "rules_elm",
+    path = "tools/rules_elm",
+)
+
+load("@rules_elm//elm:deps.bzl", "elm_register_toolchains")
+
+elm_register_toolchains()
+
+load("@rules_elm//repository:def.bzl", "elm_repository")
+
+elm_repository(
+    name = "elm_package_elm_browser",
+    sha256 = "a3001a00222e0a7e251bf0b622119384110e8ffac7e9a3c1142d382cf5d60325",
+    strip_prefix = "browser-1.0.2",
+    urls = ["https://github.com/elm/browser/archive/1.0.2.zip"],
+)
+
+elm_repository(
+    name = "elm_package_elm_core",
+    sha256 = "1ba2e027ab58f0ed41eea196fc4b016d6f5005926a9eecb1a3dffb4b2e213522",
+    strip_prefix = "core-1.0.5",
+    urls = ["https://github.com/elm/core/archive/1.0.5.zip"]
+)
+
+elm_repository(
+    name = "elm_package_mdgriffith_elm_ui",
+    sha256 = "b83b46bc62d44e9c8e01b20bb6b076fa0ee16ac029fe86120316ee0884ed5dee",
+    strip_prefix = "elm-ui-1.1.8",
+    urls = ["https://github.com/mdgriffith/elm-ui/archive/refs/tags/1.1.8.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_html",
+    sha256 = "3fc68c94637fa6fefad671d93527857851533186a069f53cdc48a548dd26b546",
+    strip_prefix = "html-1.0.0",
+    urls = ["https://github.com/elm/html/archive/1.0.0.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_virtual_dom",
+    sha256 = "0158b7a6923b2692e6aa77600b45c80aaf1573f0a11aee24a36f7d30d6549186",
+    strip_prefix = "virtual-dom-1.0.2",
+    urls = ["https://github.com/elm/virtual-dom/archive/1.0.2.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_http",
+    sha256 = "e5b58162c5e29ab9b5f7b132d4ae03309012efbac570d89eec9717189e769fd6",
+    strip_prefix = "http-2.0.0",
+    urls = ["https://github.com/elm/http/archive/2.0.0.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_json",
+    sha256 = "c8f3e274e3b45900f3b71c5107f974266daf29ba1303c35e6f9d7e4f67e7b54b",
+    strip_prefix = "json-1.1.3",
+    urls = ["https://github.com/elm/json/archive/1.1.3.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_url",
+    sha256 = "289b8e8e07775046cee897884433920f2ebc0b2bf0f0b6b93dc44111b39eea64",
+    strip_prefix = "url-1.0.0",
+    urls = ["https://github.com/elm/url/archive/1.0.0.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_bytes",
+    sha256 = "08d55273137283ebc45a500c88e62ebdb0b217acce81782651b4e2d7602ca6c9",
+    strip_prefix = "bytes-1.0.8",
+    urls = ["https://github.com/elm/bytes/archive/1.0.8.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_file",
+    sha256 = "73e1c9dc865e80b504f5dceeecea022f2d7766afa519edb68ebda758cb133d85",
+    strip_prefix = "file-1.0.5",
+    urls = ["https://github.com/elm/file/archive/1.0.5.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_regex",
+    sha256 = "37737b8e27e113e6c8f7b37a178edcfcfebb7dca6276d3b662d39ff757464be1",
+    strip_prefix = "regex-1.0.0",
+    urls = ["https://github.com/elm/regex/archive/1.0.0.zip"]
+)
+
+elm_repository(
+    name = "elm_package_elm_time",
+    sha256 = "60923a5c94fbbafee44c6520ffe030fdbd2e727ddcdea42cb688d870f76ed36d",
+    strip_prefix = "time-1.0.0",
+    urls = ["https://github.com/elm/time/archive/1.0.0.zip"]
+)
+
+# Nginx
+
+container_pull(
+    name = "nginx_base",
+    digest = "sha256:f0219f99a56ec88f02f1d6055e5b4565cb80dba10b2301aa18f47913456accac",
+    registry = "index.docker.io",
+    repository = "nginx",
+    tag = "1.23.1-alpine",
+)

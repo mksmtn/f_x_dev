@@ -1,0 +1,27 @@
+load("@rules_elm//elm:def.bzl", "elm_binary", "elm_library")
+
+elm_library(
+    name = "f_x_blog_browser_elm_library",
+    srcs = glob(["**/*.elm"]),
+    strip_import_prefix = "projects/blog/browser/src",
+    deps = [
+        "@elm_package_elm_browser",
+        "@elm_package_elm_core",
+        "@elm_package_elm_html",
+        "@elm_package_elm_http",
+        "@elm_package_elm_json",
+        "@elm_package_elm_url",
+        "@elm_package_elm_time",
+        "@elm_package_elm_virtual_dom",
+        "@elm_package_mdgriffith_elm_ui",
+    ],
+)
+
+elm_binary(
+    name = "elm",
+    main = "src/Main.elm",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":f_x_blog_browser_elm_library",
+    ],
+)

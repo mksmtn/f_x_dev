@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: f-x-blog-nginx
+  labels:
+    project: f-x-blog
+    service: f-x-blog-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: f-x-blog-nginx
+  template:
+    metadata:
+      labels:
+        project: f-x-blog
+        service: f-x-blog-nginx
+    spec:
+      containers:
+        - name: f-x-blog-nginx
+          image: docker.io/mksmtn/f_x_blog_nginx:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http

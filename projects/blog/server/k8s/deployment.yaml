@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: f-x-blog-server
+  labels:
+    project: f-x-blog
+    service: f-x-blog-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: f-x-blog-server
+  template:
+    metadata:
+      labels:
+        project: f-x-blog
+        service: f-x-blog-server
+    spec:
+      containers:
+        - name: haskell-server
+          image: docker.io/mksmtn/f_x_blog_server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: http
