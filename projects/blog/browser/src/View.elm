@@ -83,7 +83,8 @@ nav =
 
 footerLinks : Element Msg
 footerLinks =
-  [ { url = Route.toString Route.About, label = Element.text "О сайте" }
+  [ { url = Route.toString Route.Home, label = Element.text "Главная" }
+  , { url = Route.toString Route.About, label = Element.text "О сайте" }
   , { url = Route.toString Route.Contacts, label = Element.text "Контакты" }
   , { url = "https://vk.com/f_x_dev", label = Element.text "Вконтакте" }
   , { url = "https://t.me/f_x_dev", label = Element.text "Телеграм" }
