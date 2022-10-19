@@ -15,7 +15,7 @@ view zone articles =
 
 articlePreview : Time.Zone -> ArticlePreview -> Element Msg
 articlePreview zone article =
-  [ Element.text <| datePublished zone article.publishedAt, Element.text " ~ ", Element.text <| String.fromInt article.minsToRead ]
+  [ Element.text <| datePublished zone article.publishedAt, Element.text " ~ ", Element.text <| (String.fromInt article.minsToRead) ++ " мин" ]
   |> Element.row []
   |> List.singleton
   |> (::) (Element.link [] { url = "/articles/" ++ article.slug, label = Element.text article.title })
