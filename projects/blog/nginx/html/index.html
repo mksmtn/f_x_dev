@@ -6,6 +6,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/assets/css/prism.css" />
 </head>
 <body>
   <div id="elm-332211"></div>
@@ -13,6 +14,13 @@
 const app = Elm.Main.init({
   node: document.getElementById('elm-332211'),
 });
+app.ports.highlightAll.subscribe(() => {
+  setTimeout(() => {
+    console.log('Highlighting')
+    Prism.highlightAll();
+  }, 1);
+});
   </script>
+  <script src="/assets/js/prism.js"></script>
 </body>
 </html>

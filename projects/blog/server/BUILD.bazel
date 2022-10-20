@@ -7,24 +7,19 @@ load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
 load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
 
 article_files = [
-    "articles/all-strings-typescript-types-mapping.md",
+    "articles/article-preview-list.json",
+    "articles/typescript-type-mapping-example-01.md",
     "articles/pattern-matching-in-python-01.md",
 ]
-
-asset_files = [
-    "assets/pattern-matching-wide.jpg",
-    "assets/prism.css",
-    "assets/prism.js",
-]
-
-static_files = article_files + asset_files
 
 haskell_binary(
     name = "server",
     srcs = ["src/Main.hs"],
-    data = static_files,
+    data = article_files,
     deps = [
+        "@stackage//:aeson",
         "@stackage//:base",
+        "@stackage//:bytestring",
         "@stackage//:cmark",
         "@stackage//:http-types",
         "@stackage//:scotty",
@@ -32,6 +27,7 @@ haskell_binary(
         "@stackage//:text",
         "@stackage//:wai-middleware-static",
         "@stackage//:warp",
+        "@stackage//:unordered-containers",
     ],
 )
 

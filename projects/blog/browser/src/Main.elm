@@ -2,8 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Init exposing (init)
-import Msg exposing (Msg)
-import Model exposing (Model)
+import Model exposing (Model, Msg)
 import Subscriptions exposing (subscriptions)
 import Update exposing (update)
 import View exposing (view)
@@ -15,6 +14,6 @@ main =
     , view = view
     , update = update
     , subscriptions = subscriptions
-    , onUrlChange = Msg.UrlChanged
-    , onUrlRequest = Msg.LinkClicked
+    , onUrlChange = Model.UrlChanged
+    , onUrlRequest = Model.LinkClicked
     }

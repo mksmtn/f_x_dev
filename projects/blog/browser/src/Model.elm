@@ -1,13 +1,24 @@
-module Model exposing (Model, changeRoute, onUrlChange)
+module Model exposing (Model, Msg(..), Article, ArticlePreview)
 
+import Browser
 import Browser.Navigation as Nav
-import Route exposing (Route(..), parser)
-import Msg exposing (Msg(..))
-import Home exposing (ArticlePreview)
+import Route exposing (Route(..))
 import Time
 import Url
-import Url.Parser as Parser
 import Browser.Dom
+import RemoteData
+import Http
+
+
+type Msg
+  = LinkClicked Browser.UrlRequest
+  | UrlChanged Url.Url
+  | AdjustTimeZone Time.Zone
+  | AdjustViewport Browser.Dom.Viewport
+  | OnResize Int Int
+  | GotArticle (Result Http.Error Article)
+  | GotArticlePreviewList (Result Http.Error (List ArticlePreview))
+
 
 type alias Model =
   { key : Nav.Key
@@ -15,19 +26,20 @@ type alias Model =
   , route : Route
   , zone : Time.Zone
   , viewport : Browser.Dom.Viewport
-  , latestArticles : List ArticlePreview
+  , article : RemoteData.WebData Article
+  , latestArticles : RemoteData.WebData (List ArticlePreview)
   }
 
-changeRoute : Url.Url -> Model -> Model
-changeRoute url model =
-  { model
-    | url = url
-    , route = Maybe.withDefault NotFound (Parser.parse parser url)
+
+type alias Article =
+  { preview : ArticlePreview
+  , content : String
   }
 
-onUrlChange : Url.Url -> Model -> (Model, Cmd Msg)
-onUrlChange url model =
-  let
-    nextModel = changeRoute url model
-  in
-  (nextModel, Cmd.none)
+
+type alias ArticlePreview =
+  { title : String
+  , publishedAt : Int
+  , minsToRead : Int
+  , slug : String
+  }

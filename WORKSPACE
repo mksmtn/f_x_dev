@@ -29,12 +29,15 @@ load("@rules_haskell//haskell:cabal.bzl", "stack_snapshot")
 stack_snapshot(
     name = "stackage",
     packages = [
+        "aeson",
         "base",
+        "bytestring",
         "cmark",
         "http-types",
         "scotty",
         "streaming-commons",
         "text",
+        "unordered-containers",
         "wai-middleware-static",
         "warp",
     ],
@@ -157,77 +160,105 @@ elm_repository(
     name = "elm_package_elm_core",
     sha256 = "1ba2e027ab58f0ed41eea196fc4b016d6f5005926a9eecb1a3dffb4b2e213522",
     strip_prefix = "core-1.0.5",
-    urls = ["https://github.com/elm/core/archive/1.0.5.zip"]
+    urls = ["https://github.com/elm/core/archive/1.0.5.zip"],
 )
 
 elm_repository(
     name = "elm_package_mdgriffith_elm_ui",
     sha256 = "b83b46bc62d44e9c8e01b20bb6b076fa0ee16ac029fe86120316ee0884ed5dee",
     strip_prefix = "elm-ui-1.1.8",
-    urls = ["https://github.com/mdgriffith/elm-ui/archive/refs/tags/1.1.8.zip"]
+    urls = ["https://github.com/mdgriffith/elm-ui/archive/refs/tags/1.1.8.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_html",
     sha256 = "3fc68c94637fa6fefad671d93527857851533186a069f53cdc48a548dd26b546",
     strip_prefix = "html-1.0.0",
-    urls = ["https://github.com/elm/html/archive/1.0.0.zip"]
+    urls = ["https://github.com/elm/html/archive/1.0.0.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_virtual_dom",
     sha256 = "0158b7a6923b2692e6aa77600b45c80aaf1573f0a11aee24a36f7d30d6549186",
     strip_prefix = "virtual-dom-1.0.2",
-    urls = ["https://github.com/elm/virtual-dom/archive/1.0.2.zip"]
+    urls = ["https://github.com/elm/virtual-dom/archive/1.0.2.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_http",
     sha256 = "e5b58162c5e29ab9b5f7b132d4ae03309012efbac570d89eec9717189e769fd6",
     strip_prefix = "http-2.0.0",
-    urls = ["https://github.com/elm/http/archive/2.0.0.zip"]
+    urls = ["https://github.com/elm/http/archive/2.0.0.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_json",
     sha256 = "c8f3e274e3b45900f3b71c5107f974266daf29ba1303c35e6f9d7e4f67e7b54b",
     strip_prefix = "json-1.1.3",
-    urls = ["https://github.com/elm/json/archive/1.1.3.zip"]
+    urls = ["https://github.com/elm/json/archive/1.1.3.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_url",
     sha256 = "289b8e8e07775046cee897884433920f2ebc0b2bf0f0b6b93dc44111b39eea64",
     strip_prefix = "url-1.0.0",
-    urls = ["https://github.com/elm/url/archive/1.0.0.zip"]
+    urls = ["https://github.com/elm/url/archive/1.0.0.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_bytes",
     sha256 = "08d55273137283ebc45a500c88e62ebdb0b217acce81782651b4e2d7602ca6c9",
     strip_prefix = "bytes-1.0.8",
-    urls = ["https://github.com/elm/bytes/archive/1.0.8.zip"]
+    urls = ["https://github.com/elm/bytes/archive/1.0.8.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_file",
     sha256 = "73e1c9dc865e80b504f5dceeecea022f2d7766afa519edb68ebda758cb133d85",
     strip_prefix = "file-1.0.5",
-    urls = ["https://github.com/elm/file/archive/1.0.5.zip"]
+    urls = ["https://github.com/elm/file/archive/1.0.5.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_regex",
     sha256 = "37737b8e27e113e6c8f7b37a178edcfcfebb7dca6276d3b662d39ff757464be1",
     strip_prefix = "regex-1.0.0",
-    urls = ["https://github.com/elm/regex/archive/1.0.0.zip"]
+    urls = ["https://github.com/elm/regex/archive/1.0.0.zip"],
 )
 
 elm_repository(
     name = "elm_package_elm_time",
     sha256 = "60923a5c94fbbafee44c6520ffe030fdbd2e727ddcdea42cb688d870f76ed36d",
     strip_prefix = "time-1.0.0",
-    urls = ["https://github.com/elm/time/archive/1.0.0.zip"]
+    urls = ["https://github.com/elm/time/archive/1.0.0.zip"],
+)
+
+elm_repository(
+    name = "elm_package_krisajenkins_remotedata",
+    sha256 = "2d425a5574be26feeab8796513aa004f3a642a90cdb8524fd3b885c4111effcc",
+    strip_prefix = "remotedata-6.0.1",
+    urls = ["https://github.com/krisajenkins/remotedata/archive/refs/tags/6.0.1.zip"],
+)
+
+elm_repository(
+    name = "elm_package_dillonkearns_elm_markdown",
+    sha256 = "e85d4d59b72d4a08f0f46702c50f918e401f81fda066d8ea833892f95189f70b",
+    strip_prefix = "elm-markdown-7.0.0",
+    urls = ["https://github.com/dillonkearns/elm-markdown/archive/refs/tags/7.0.0.zip"],
+)
+
+elm_repository(
+    name = "elm_package_rtfeldman_elm_hex",
+    sha256 = "20ef30de152a850f01680b52c60b39c50909cb0a26b303780bdd596a656b032e",
+    strip_prefix = "elm-hex-1.0.0",
+    urls = ["https://github.com/rtfeldman/elm-hex/archive/refs/tags/1.0.0.zip"],
+)
+
+elm_repository(
+    name = "elm_package_elm_parser",
+    sha256 = "68c7c251470580561531b1076ffea80f1d9cc610c1af217008c8753e6d7b43a5",
+    strip_prefix = "parser-1.1.0",
+    urls = ["https://github.com/elm/parser/archive/refs/tags/1.1.0.zip"],
 )
 
 # Nginx

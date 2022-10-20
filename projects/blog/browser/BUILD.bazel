@@ -14,6 +14,8 @@ elm_library(
         "@elm_package_elm_time",
         "@elm_package_elm_virtual_dom",
         "@elm_package_mdgriffith_elm_ui",
+        "@elm_package_krisajenkins_remotedata",
+        "@elm_package_dillonkearns_elm_markdown",
     ],
 )
 

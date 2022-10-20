@@ -1,7 +1,7 @@
 module View exposing (view)
 
-import Model exposing (Model)
-import Msg exposing (Msg(..))
+import Article
+import Model exposing (Model, Msg(..))
 import Route exposing (Route(..))
 import Html exposing (Html)
 import Element exposing (Element)
@@ -17,14 +17,14 @@ routerOutlet model =
     About ->
       Element.text "About"
     
-    Article slug ->
-      Element.text slug
+    Article _ ->
+      Article.view model
 
     Contacts ->
       Element.text "Contact me"
 
     Home ->
-      Home.view model.zone model.latestArticles
+      Home.view model
     
     NotFound ->
       Element.text "Not found"
