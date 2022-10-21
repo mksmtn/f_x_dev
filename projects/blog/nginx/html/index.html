@@ -3,6 +3,7 @@
 <head>
   <title>f(x) blog</title>
   <script src="/elm.js"></script>
+  <script src="/assets/js/prism.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,11 +17,14 @@ const app = Elm.Main.init({
 });
 app.ports.highlightAll.subscribe(() => {
   setTimeout(() => {
-    console.log('Highlighting')
+    console.log('Highlighting');
     Prism.highlightAll();
   }, 1);
+  setTimeout(() => {
+    console.log('Highlighing II');
+    Prism.highlightAll();
+  }, 10)
 });
   </script>
-  <script src="/assets/js/prism.js"></script>
 </body>
 </html>
