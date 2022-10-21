@@ -1,6 +1,6 @@
-# Паттерн матчинг в Python
+# Обзор паттерн матчинга в Python
 
-![Tinder match between Python and Haskell](/pattern-matching-wide.jpg)
+![Tinder match between Python and Haskell](/assets/images/pattern-matching-wide.jpg)
 
 Последняя версия Python (3.10), выпущенная около года назад, привнесла в язык новый синтаксический конструкт, известный как Structural Pattern Matching. На первый взгляд он кажется непонятным и излишним: тех же результатов можно добиться, используя знакомый всем `if/else`. В этой статье разберем мотивацию для добавления паттерн матчинга и особенности его реализации в Python в сравнении с другими языками.
 
