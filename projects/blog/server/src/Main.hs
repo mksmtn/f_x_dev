@@ -16,7 +16,7 @@ import qualified Data.List as List
 import System.Environment (lookupEnv)
 import GHC.Generics
 
-data ArticlePreview = ArticlePreview { title :: Text.Text, publishedAt :: Int, minsToRead :: Int, slug :: Text.Text } deriving (Generic, Show)
+data ArticlePreview = ArticlePreview { title :: String, publishedAt :: Int, minsToRead :: Int, slug :: String } deriving (Generic, Show)
 
 instance FromJSON ArticlePreview
 instance ToJSON ArticlePreview
@@ -56,7 +56,7 @@ main = do
             let articlePreviewList = decode content :: Maybe [ArticlePreview]
             case articlePreviewList of
                 Just list ->
-                    case (List.find (\_ -> True) list) of
+                    case (List.find (\(ArticlePreview {slug = slug}) -> slug == fileName) list) of
                         Just preview ->
                             json response
                             where
