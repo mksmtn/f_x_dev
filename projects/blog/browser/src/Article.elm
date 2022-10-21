@@ -1,21 +1,21 @@
 module Article exposing (view)
 
-import Components
-import Json.Encode as E
+import Ui
 import Element exposing (Element)
-import Model exposing (Model, Msg)
-import RemoteData exposing (RemoteData(..))
+import Element.Font as Font
+import Model exposing (Model, Article, Msg)
+import RemoteData
 import Model exposing (ArticlePreview)
 import Markdown.Parser as Md
-import Markdown.Renderer as MdRenderer
+import Markdown.Renderer
+import MarkdownRenderer
 import Html
 import Time
-import Html.Attributes
 
 
-view : Model -> Element Msg
-view model =
-  case model.article of
+view : RemoteData.WebData Article -> Time.Zone -> Element Msg
+view articleRd zone =
+  case articleRd of
     RemoteData.NotAsked -> 
       Element.text "..."
     
@@ -27,39 +27,38 @@ view model =
       |> Element.column []
     
     RemoteData.Success article ->
-      [ meta model.zone article.preview
-      , Element.text article.preview.title
+      [ meta zone article.preview
       , content article.content
       ]
-      |> Element.column []
+      |> Element.column
+           [ Element.width Element.fill
+           , Element.paddingXY 0 Ui.spM
+           , Element.spacingXY 0 Ui.spS
+           ]
 
 
 content : String -> Element Msg
 content markdown =
-  case
-    markdown
-    |> Md.parse
-    |> Result.mapError deadEndsToString
-    |> Result.andThen (\ast -> MdRenderer.render MdRenderer.defaultHtmlRenderer ast)
-  of
-    Ok rendered ->
-      rendered
-      |> Html.article []
-      |> Element.html
-    Err _ ->
-      Element.text "Ошибка парсинга статьи"
+  markdown
+  |> Md.parse
+  |> Result.mapError deadEndsToString
+  |> Result.andThen (Markdown.Renderer.render MarkdownRenderer.renderer)
+  |> Result.map (Element.textColumn [ Element.width Element.fill, Element.spacingXY 0 Ui.spM ])
+  |> Result.withDefault (Element.text "Ошибка парсинга статьи")
 
 
 meta : Time.Zone -> ArticlePreview -> Element Msg
 meta zone article =
-  [ Element.text <| Components.datePublished zone article.publishedAt
-  , Element.text " ~ "
+  [ Element.text <| Ui.datePublished zone article.publishedAt
+  , Element.text " · "
   , Element.text ((String.fromInt article.minsToRead) ++ "мин")
-  , Element.text " | "
-  , Element.text "Поделиться в вк"
+  -- , Element.text " | "
+  -- , Element.el [ Font.color <| Ui.black 1 ] <| Element.text "Поделиться в вк"
   ]
-  |> Element.row []
-
+  |> Element.row
+     [ Element.width Element.fill
+     , Font.color <| Ui.grey 1
+     ]
 
 
 deadEndsToString deadEnds =
