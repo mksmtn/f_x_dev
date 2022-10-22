@@ -51,7 +51,7 @@ meta : Time.Zone -> ArticlePreview -> Element Msg
 meta zone article =
   [ Element.text <| Ui.datePublished zone article.publishedAt
   , Element.text " · "
-  , Element.text ((String.fromInt article.minsToRead) ++ "мин")
+  , Element.text ((String.fromInt article.minsToRead) ++ " мин")
   -- , Element.text " | "
   -- , Element.el [ Font.color <| Ui.black 1 ] <| Element.text "Поделиться в вк"
   ]
