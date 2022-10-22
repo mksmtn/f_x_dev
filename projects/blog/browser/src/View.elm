@@ -10,10 +10,11 @@ import Html exposing (Html)
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Font as Font
+import Element.Region
+import RemoteData
 import Home
 import Ui
 import Browser
-import Element.Region
 
 
 routerOutlet : Model -> Element Msg
@@ -45,7 +46,15 @@ routerOutlet model =
 
 view : Model -> Browser.Document Msg
 view model =
-  { title = "f(x) blog"
+  let
+    title =
+      case model.article of
+        RemoteData.Success article ->
+          "f(x) | " ++ article.preview.title
+        _ ->
+          "f(x) Блог"
+  in
+  { title = title
   , body =
     [ body model
     ]
