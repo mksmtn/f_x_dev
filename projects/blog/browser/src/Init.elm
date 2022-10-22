@@ -8,7 +8,7 @@ import Time
 import Task
 import Browser.Dom
 import RemoteData
-import UrlChangeHandlers exposing (onUrlChange)
+import Update exposing (onUrlChange)
 import Commands exposing (loadArticlePreviewList)
 
 

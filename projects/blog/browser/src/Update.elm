@@ -1,4 +1,4 @@
-port module Update exposing (update)
+port module Update exposing (update, onUrlChange)
 
 import Commands
 import Route
