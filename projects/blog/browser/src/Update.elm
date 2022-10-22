@@ -1,13 +1,16 @@
 port module Update exposing (update)
 
+import Commands
+import Route
 import Model exposing (Model, Msg(..))
 import Url
+import Url.Parser as Parser
 import Browser
 import Browser.Navigation as Nav
-import UrlChangeHandlers exposing (onUrlChange)
 import RemoteData
 
 port highlightAll : () -> Cmd msg
+port trackNavigation : String -> Cmd msg
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -60,3 +63,27 @@ update msg model =
         
         Err err ->
           ({ model | latestArticles = RemoteData.Failure err }, Cmd.none)
+
+
+changeRoute : Url.Url -> Model -> Model
+changeRoute url model =
+  { model
+    | url = url
+    , route = Maybe.withDefault Route.NotFound (Parser.parse Route.parser url)
+  }
+
+
+onUrlChange : Url.Url -> Model -> (Model, Cmd Msg)
+onUrlChange url model =
+  let
+    nextModel = changeRoute url model
+
+    routeCmd =
+      case nextModel.route of
+        Route.Article slug ->
+          Commands.loadArticle slug
+        _ ->
+          Cmd.none
+  
+  in
+  (nextModel, Cmd.batch [routeCmd, trackNavigation <| Url.toString url])
