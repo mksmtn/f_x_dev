@@ -6,10 +6,13 @@ import Decoders exposing (articlePreviewListDecoder)
 import Model exposing (Msg)
 
 
+apiBaseUrl : String
+apiBaseUrl = "/api"
+
 loadArticle : String -> Cmd Msg
 loadArticle slug =
   Http.get
-    { url = "/api/articles/" ++ slug
+    { url = apiBaseUrl ++ "/articles/" ++ slug
     , expect = Http.expectJson Model.GotArticle articleDecoder
     }
 
@@ -17,6 +20,6 @@ loadArticle slug =
 loadArticlePreviewList :  Cmd Msg
 loadArticlePreviewList =
   Http.get
-    { url = "/api/articles"
+    { url = apiBaseUrl ++ "/articles"
     , expect = Http.expectJson Model.GotArticlePreviewList articlePreviewListDecoder
     }
