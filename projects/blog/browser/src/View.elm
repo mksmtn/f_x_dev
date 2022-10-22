@@ -48,11 +48,21 @@ view : Model -> Browser.Document Msg
 view model =
   let
     title =
-      case model.article of
-        RemoteData.Success article ->
-          "f(x) | " ++ article.preview.title
-        _ ->
-          "f(x) Блог"
+      case model.route of
+          Route.Article _ ->
+            case model.article of
+              RemoteData.Success article ->
+                "f(x) | " ++ article.preview.title
+              _ ->
+                "f(x) Блог"
+          Route.About ->
+            "f(x) | О сайте"
+          Route.Contacts ->
+            "f(x) | Контакты"
+          Route.Home ->
+            "f(x) | Последние статьи"
+          Route.NotFound ->
+            "f(x) | 404"
   in
   { title = title
   , body =
