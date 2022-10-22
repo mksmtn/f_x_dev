@@ -92,21 +92,17 @@ renderer =
     , tableBody = Element.column []
     , tableRow = Element.row [ Element.height Element.fill, Element.width Element.fill ]
     , tableHeaderCell =
-        \maybeAlignment children ->
+        \_ children ->
             Element.paragraph
                 tableBorder
                 children
     , tableCell =
-        \maybeAlignment children ->
+        \_ children ->
             Element.paragraph
                 tableBorder
                 children
     , html = Markdown.Html.oneOf []
     }
-
-
-alternateTableRowBackground =
-    Element.rgb255 245 247 249
 
 
 tableBorder =
@@ -155,3 +151,8 @@ codeBlock details =
     |> List.singleton
     |> Html.pre []
     |> Element.html
+    |> Element.el
+         [ Element.width Element.fill
+         , Element.clipX
+         , Element.scrollbarX
+         ]
