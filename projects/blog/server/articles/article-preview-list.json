@@ -1,5 +1,11 @@
 [
   {
+    "title": "Везде обман: опыт российского Managed Kubernetes",
+    "publishedAt": 1666639343129,
+    "minsToRead": 5,
+    "slug": "russian-managed-k8s-01"
+  },
+  {
     "title": "Обзор паттерн матчинга в Python",
     "publishedAt": 1666270250176,
     "minsToRead": 5,
