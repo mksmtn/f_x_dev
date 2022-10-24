@@ -41,13 +41,15 @@ link url child =
 
 container : Element msg -> Element msg
 container content =
-  Element.row
-    [ Element.centerX
-    , Element.htmlAttribute <| Html.Attributes.style "width" "100vw"
+  Element.el
+    [ Element.htmlAttribute <| Html.Attributes.style "width" "100vw"
     , Element.htmlAttribute <| Html.Attributes.style "max-width" ((String.fromInt containerMaxWidth) ++ "px")
+    , Element.width Element.fill
+    -- Center the container relative to the viewport
+    , Element.centerX
     ]
     
-    [ content ]
+    content
 
 
 datePublished : Time.Zone -> Int -> String

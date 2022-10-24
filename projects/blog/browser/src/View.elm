@@ -7,6 +7,7 @@ import Contacts
 import Model exposing (Model, Msg(..))
 import Route exposing (Route(..))
 import Html exposing (Html)
+import Html.Attributes
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Font as Font
@@ -40,7 +41,7 @@ routerOutlet model =
   page
   |> Element.el
        [ Element.paddingXY Ui.spS 0
-       , Element.width Element.fill
+       , Element.htmlAttribute <| Html.Attributes.style "max-width" "100%"
        ]
 
 
@@ -80,15 +81,8 @@ body model =
   ]
   |> Element.column [ Element.width Element.fill, Element.height Element.fill ]
   |> Element.layout
-      [ Element.fill
-        |> Element.maximum (round model.viewport.viewport.width)
-        |> Element.width
-      , Element.fill
-        |> Element.minimum (round model.viewport.viewport.height)
-        |> Element.height
-      , Background.color <| Ui.white 1
+      [ Background.color <| Ui.white 1
       , Font.color <| Ui.black 1
-      , Element.scrollbarY
       ]
 
 

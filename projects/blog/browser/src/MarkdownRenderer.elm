@@ -152,7 +152,7 @@ codeBlock details =
     |> Html.pre []
     |> Element.html
     |> Element.el
-         [ Element.width Element.fill
+         [ Element.htmlAttribute <| Html.Attributes.style "max-width" "100%"
          , Element.clipX
          , Element.scrollbarX
          ]
