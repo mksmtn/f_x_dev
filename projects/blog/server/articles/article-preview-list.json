@@ -1,5 +1,11 @@
 [
   {
+    "title": "Контейнеры разработки: дев среда как код",
+    "publishedAt": 1667592362485,
+    "minsToRead": 6,
+    "slug": "dev-containers-01"
+  },
+  {
     "title": "Везде обман: опыт российского Managed Kubernetes",
     "publishedAt": 1666639343129,
     "minsToRead": 5,
