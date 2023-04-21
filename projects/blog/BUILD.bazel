@@ -1,12 +1,7 @@
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_layer")
 load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
 load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
-
-container_layer(
-    name = "application",
-    directory = "/usr/share/nginx/html",
-    files = ["//projects/blog/browser:elm"],
-)
+load("//projects/blog:variables.bzl", "CLUSTER_NAME")
 
 container_layer(
     name = "nginx_assets",
@@ -26,7 +21,6 @@ container_image(
     name = "f_x_nginx_image",
     base = "@nginx_base//image",
     layers = [
-        ":application",
         ":nginx_config",
         ":nginx_assets",
     ],
@@ -35,7 +29,7 @@ container_image(
 
 k8s_object(
     name = "deployment",
-    cluster = "promoted-maggot-959e4d",
+    cluster = CLUSTER_NAME,
     images = {
         "docker.io/mksmtn/f_x_blog_nginx:latest": ":f_x_nginx_image",
     },
@@ -46,7 +40,7 @@ k8s_object(
 
 k8s_object(
     name = "service",
-    cluster = "promoted-maggot-959e4d",
+    cluster = CLUSTER_NAME,
     kind = "service",
     kubeconfig = "//secrets:config.yaml",
     template = "k8s/service.yaml",
@@ -54,7 +48,7 @@ k8s_object(
 
 k8s_object(
     name = "ingress",
-    cluster = "promoted-maggot-959e4d",
+    cluster = CLUSTER_NAME,
     kind = "ingress",
     kubeconfig = "//secrets:config.yaml",
     template = "k8s/ingress.yaml",

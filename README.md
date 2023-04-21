@@ -56,4 +56,37 @@ curl -L https://dl.k8s.io/release/v1.23.12/bin/linux/amd64/kubectl -o bin/kubect
 
 ### Developing in Haskell
 
-**Updating dependencies**: add a dependency to `stack_snapshot` WORKSPACE rule, and then do `bazelisk run @stackage-unpinned//:pin`.
+**Updating dependencies**: add a dependency to `stack_snapshot` WORKSPACE rule, and then do `bazel run @stackage-unpinned//:pin`.
+
+## Cons 
+
+1. Необходимо оптимизировать докерфайл для прода
+
+2. При обновлении докерфайла сбросится кэш (например у Bazel) и не сохраняется история в консоли
+
+## TODO
+
+1. Use private docker registry
+
+2. Add linting and formatting
+
+3. Add type hint and autocompletion
+
+
+### Issuing a certificate
+
+1. helm repo add jetstack https://charts.jetstack.io
+
+2. helm repo update
+
+3. kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+
+4. helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.11.0
+
+5. kubectl create -f projects/blog/k8s/issuer.yaml --kubeconfig secrets/config.yaml
+
+6. kubectl get certificate

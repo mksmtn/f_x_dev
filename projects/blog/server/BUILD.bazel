@@ -5,6 +5,7 @@ load(
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_layer")
 load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
 load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
+load("//projects/blog:variables.bzl", "CLUSTER_NAME")
 
 article_files = [
     "articles/article-preview-list.json",
@@ -12,20 +13,44 @@ article_files = [
 
 haskell_binary(
     name = "server",
-    srcs = ["src/Main.hs"],
+    ghcopts = [
+        "-Werror",
+        "-Wall",
+        "-Wcompat",
+        "-Wincomplete-record-updates",
+        "-Wincomplete-patterns",
+        "-Wredundant-constraints",
+        "-Wnoncanonical-monad-instances",
+        "-XDeriveGeneric",
+        "-XOverloadedStrings",
+        "-XNamedFieldPuns"
+    ],
+    srcs = [
+        "src/About.hs",
+        "src/Article.hs",
+        "src/ArticlePreview.hs",
+        "src/Consts.hs",
+        "src/Contacts.hs",
+        "src/CustomAttributes.hs",
+        "src/Home.hs",
+        "src/Main.hs",
+    ],
     data = article_files,
     deps = [
         "@stackage//:aeson",
         "@stackage//:base",
+        "@stackage//:blaze-html",
+        "@stackage//:blaze-markup",
         "@stackage//:bytestring",
         "@stackage//:cmark",
         "@stackage//:http-types",
         "@stackage//:scotty",
         "@stackage//:streaming-commons",
         "@stackage//:text",
+        "@stackage//:time",
+        "@stackage//:unordered-containers",
         "@stackage//:wai-middleware-static",
         "@stackage//:warp",
-        "@stackage//:unordered-containers",
     ],
 )
 
@@ -61,7 +86,7 @@ container_image(
 
 k8s_object(
     name = "deployment",
-    cluster = "promoted-maggot-959e4d",
+    cluster = CLUSTER_NAME,
     images = {
         "docker.io/mksmtn/f_x_blog_server:latest": ":server_image",
     },
@@ -72,7 +97,7 @@ k8s_object(
 
 k8s_object(
     name = "service",
-    cluster = "promoted-maggot-959e4d",
+    cluster = CLUSTER_NAME,
     kind = "service",
     kubeconfig = "//secrets:config.yaml",
     template = "k8s/service.yaml",
@@ -84,5 +109,5 @@ k8s_objects(
         ":deployment",
         ":service",
     ],
-    visibility = ["//projects/blog:__pkg__"]
+    visibility = ["//projects/blog:__pkg__"],
 )
