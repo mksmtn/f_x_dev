@@ -1,5 +1,11 @@
 [
   {
+    "title": "ngx-remotedata: корректная типизация данных от сервера",
+    "publishedAt": 1682289127124,
+    "minsToRead": 5,
+    "slug": "ngx-remotedata-typing-01"
+  },
+  {
     "title": "Контейнеры разработки: дев среда как код",
     "publishedAt": 1667592362485,
     "minsToRead": 6,
