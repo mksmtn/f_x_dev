@@ -34,6 +34,7 @@ haskell_binary(
         "src/CustomAttributes.hs",
         "src/Home.hs",
         "src/Main.hs",
+        "src/WrapHtmlContent.hs"
     ],
     data = article_files,
     deps = [
