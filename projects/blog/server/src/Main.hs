@@ -41,7 +41,7 @@ main = do
             articlePreviewList <- liftIO loadArticlePreviews
             case articlePreviewList of
                 Just list ->
-                    render . Home.view $ list
+                    render . Home.view . List.filter (\(ArticlePreview { private }) -> not private) $ list
                 Nothing ->
                     raise "Error parsing article list"
 

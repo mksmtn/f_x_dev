@@ -14,6 +14,7 @@ data ArticlePreview = ArticlePreview { title :: String
                                      , publishedAt :: Int
                                      , minsToRead :: Int
                                      , slug :: String
+                                     , private :: Bool
                                      } deriving (Generic, Show)
 
 instance FromJSON ArticlePreview
