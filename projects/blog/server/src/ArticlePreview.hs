@@ -29,7 +29,7 @@ mskZone =
            }
 
 
--- todo: remove year if year to the current year
+-- todo: remove year if year is equal to the current year
 -- todo: respect browser time zone
 -- todo: respect browser language
 posixSecondsToMoscowDate :: Int -> String
