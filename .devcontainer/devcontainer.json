@@ -2,22 +2,29 @@
   "name": "Dev Container for f(x) monorepo",
   "build": {
     "context": "..",
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "args": {
+      "BUILDKIT_INLINE_CACHE": "0"
+    }
   },
   "mounts": ["source=${localEnv:HOME}/.docker/,target=/etc/docker/,type=bind,readonly=true,consistency=cached"],
-  "extensions": [
-    "bazelbuild.vscode-bazel",
-    "haskell.haskell"
-  ],
-  "settings": {
-    "files.exclude": {
-      "**/.git": true,
-      "**/.svn": true,
-      "**/.hg": true,
-      "**/CVS": true,
-      "**/.DS_Store": true,
-      "**/Thumbs.db": true,
-      "**/bazel-*": true
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bazelbuild.vscode-bazel",
+        "haskell.haskell"
+      ],
+      "settings": {
+        "files.exclude": {
+          "**/.git": true,
+          "**/.svn": true,
+          "**/.hg": true,
+          "**/CVS": true,
+          "**/.DS_Store": true,
+          "**/Thumbs.db": true,
+          "**/bazel-*": true
+        }
+      }
     }
   }
 }
