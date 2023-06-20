@@ -4,7 +4,7 @@ import Data.String (IsString(fromString))
 import qualified Text.Blaze.Html5 as H
 import Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5.Attributes as A
-import Consts (tgChannelLink, bootstrapCssLocation, bootstrapCssSha, bootstrapJsLocation, bootstrapJsSha)
+import Consts (tgChannelLink, githubLink, bootstrapCssLocation, bootstrapCssSha, bootstrapJsLocation, bootstrapJsSha)
 import CustomAttributes (integrity, crossorigin)
 
 wrapHtmlContent :: (String, H.Html) -> H.Html
@@ -72,6 +72,7 @@ footerLinksList =
     , ("/about", "О сайте")
     , ("/contacts", "Контакты")
     , (tgChannelLink, "Телеграм")
+    , (githubLink, "GitHub")
     ]
 
 

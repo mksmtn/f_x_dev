@@ -1,6 +1,7 @@
 module Consts (
   vkGroupLink,
   tgChannelLink,
+  githubLink,
   articlePreviewListPath,
   bootstrapCssLocation,
   bootstrapJsLocation,
@@ -14,6 +15,9 @@ vkGroupLink = "https://vk.com/f_x_dev"
 
 tgChannelLink :: String
 tgChannelLink = "https://t.me/f_x_dev"
+
+githubLink :: String
+githubLink = "https://github.com/mksmtn/f_x_dev"
 
 articlePreviewListPath :: String
 articlePreviewListPath = "projects/blog/server/articles/article-preview-list.json"
